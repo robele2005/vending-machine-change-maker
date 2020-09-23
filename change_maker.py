@@ -169,7 +169,9 @@ class vending_machine:
 
         # calculating and displaying total cents in machine
 
-        cents = (10000 * self.hundreds)+(5000 * self.fifties)+(2000 * self.twenties)+(1000 * self.tens)+(500 * self.fives)+(100*self.ones)+(25*self.quarters)+(10*self.dimes)+(5*self.nickels) + (1*self.pennies)
+        cents = ((10000 * self.hundreds) + (5000 * self.fifties) + (2000 * self.twenties)
+                +(1000 * self.tens) + (500 * self.fives) + (100 * self.ones) + (25 * self.quarters)
+                + (10 * self.dimes) + (5 * self.nickels) + (1 * self.pennies))
 
         print("Total: ", end="")
 
@@ -185,7 +187,9 @@ class vending_machine:
 
         user_input = input("Select your deposit: ")
 
-        if (user_input == 'p' or user_input == 'n' or user_input == 'd' or user_input == 'q' or user_input == 'o' or user_input == 'f' or user_input == 't' or user_input == 'tw' or user_input == 'fi' or user_input == 'h' or user_input == 'c'):
+        if (user_input == 'p' or user_input == 'n' or user_input == 'd' or user_input == 'q'
+            or user_input == 'o' or user_input == 'f' or user_input == 't' or user_input == 'tw'
+            or user_input == 'fi' or user_input == 'h' or user_input == 'c'):
 
             return user_input
 
