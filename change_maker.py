@@ -3,15 +3,25 @@
 class vending_machine:
     def __init__(self):
         #initializing denominations
-        self.fives=0
+        self.hundreds = 0
 
-        self.ones=0
+        self.fifties = 10
+
+        self.twenties = 10
+
+        self.tens = 10
+
+        self.fives=10
+
+        self.ones=25
 
         self.quarters=25
 
         self.dimes=25
 
         self.nickels=25
+
+        self.pennies = 25
 
         print("Welcome to vending machine change maker")
 
@@ -25,6 +35,14 @@ class vending_machine:
 
             print("Stock contains:")
 
+            print(str(self.hundreds)+"--- hundreds")
+
+            print(str(self.fifties)+"--- fifties")
+
+            print(str(self.twenties)+"--- twenties")
+
+            print(str(self.tens)+"--- tens")
+
             print(str(self.fives)+"--- fives")
 
             print(str(self.ones)+"--- ones")
@@ -34,6 +52,8 @@ class vending_machine:
             print(str(self.dimes)+"--- dimes")
 
             print(str(self.nickels)+"--- nickels")
+
+            print(str(self.pennies)+"--- pennies")
 
             #get valid purchase price
 
@@ -48,6 +68,14 @@ class vending_machine:
 
             print("Menu for deposits:")
 
+            print("'h' - deposit a hundred dollar bill")
+
+            print("'fi' - deposit a fifty dollar bill")
+
+            print("'tw' - deposit a twenty dollar bill")
+
+            print("'t' - deposit a ten dollar bill")
+
             print("'f' - deposit a five dollar bill")
 
             print("'o' - deposit a one dollar bill")
@@ -57,6 +85,8 @@ class vending_machine:
             print("'d' - deposit a dime")
 
             print("'n' - deposit a nickel")
+
+            print("'p' - deposit a penny")
 
             print("'c' - cancel the purchase")
 
@@ -73,6 +103,12 @@ class vending_machine:
                 if(deposit_choice==-1):
 
                     continue
+
+                if deposit_choice=='p':
+
+                    self.pennies+=1
+
+                    cents-=1
 
                 if deposit_choice=='n':
 
@@ -104,13 +140,37 @@ class vending_machine:
 
                     cents-=500
 
+                if deposit_choice=='t':
+
+                    self.tens+=1
+
+                    cents-=1000
+
+                if deposit_choice=='tw':
+
+                    self.twenties+=1
+
+                    cents-=2000
+
+                if deposit_choice=='fi':
+
+                    self.fifties+=1
+
+                    cents-=5000
+
+                if deposit_choice=='h':
+
+                    self.hundreds+=1
+
+                    cents-=10000
+
                 if deposit_choice=='c':
 
                     cents-=initial_cents
 
         #calculating and displaying total cents in machine
 
-        cents= (500 * self.fives)+(100*self.ones)+(25*self.quarters)+(10*self.dimes)+(5*self.nickels)
+        cents= (10000 * self.hundreds)+(5000 * self.fifties)+(2000 * self.twenties)+(1000 * self.tens)+(500 * self.fives)+(100*self.ones)+(25*self.quarters)+(10*self.dimes)+(5*self.nickels)+ (1*self.pennies)
 
         print("Total: ",end="")
 
@@ -126,7 +186,7 @@ class vending_machine:
 
         user_input =input("Select your deposit: ")
 
-        if user_input=='n' or user_input=='d' or user_input=='q' or user_input=='o' or user_input=='f' or user_input=='c':
+        if user_input=='p' or user_input=='n' or user_input=='d' or user_input=='q' or user_input=='o' or user_input=='f'  or user_input=='t' or user_input=='tw' or user_input=='fi'or user_input=='h' or user_input=='c':
 
             return user_input
 
@@ -146,6 +206,24 @@ class vending_machine:
 
             #calculate the number of coins using greedy algorithm
 
+            hundreds = min(self.hundreds,(change//10000))
+            change=change-10000*hundreds
+
+            fifties = min(self.fifties,(change//5000))
+            change=change-5000*fifties
+
+            twenties = min(self.ones,(change//2000))
+            change=change-2000*twenties
+
+            tens = min(self.ones,(change//1000))
+            change=change-1000*tens
+
+            fives = min(self.fives,(change//500))
+            change=change-500*fives
+
+            ones = min(self.ones,(change//100))
+            change=change-100*ones
+
             quarters=min(self.quarters,(change//25))
 
             change=change-25*quarters
@@ -158,7 +236,42 @@ class vending_machine:
 
             change=change-5*nickels
 
+            pennies=min(self.pennies,(change//1))
+
+            change=change-1*pennies
+
             print("Please take the change below.")
+
+            if(fifties>0):
+
+                self.fifties-=fifties
+
+            print(str(fifties)+" fifties")
+
+            if(twenties>0):
+
+                self.twenties-=twenties
+
+            print(str(twenties)+" twenties")
+
+            if(tens>0):
+
+                self.tens-=tens
+
+            print(str(tens)+" tens")
+
+            if(fives>0):
+
+                self.fives-=fives
+
+            print(str(fives)+" fives")
+
+
+            if(ones>0):
+
+                self.ones-=ones
+
+            print(str(ones)+" ones")
 
             if(quarters>0):
 
@@ -177,6 +290,12 @@ class vending_machine:
                 self.nickels-=nickels
 
             print(str(nickels)+" nickels")
+
+            if(pennies>0):
+
+                self.pennies-=pennies
+
+            print(str(pennies)+" pennies")
 
             if(change>0):
 
@@ -221,9 +340,9 @@ class vending_machine:
 
             return -1
 
-        if float(user_input)<0 or (int(round(float(user_input)*100)))%5!=0:
+        if float(user_input)<=0:
 
-            print("The price must be a non-negative and multiple of 5 cents.")
+            print("The price must be a non-negative.")
 
             return self.getPurchasePrice()
 
